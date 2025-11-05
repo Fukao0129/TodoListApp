@@ -1,12 +1,18 @@
 <script setup lang="ts">
-const runtimeConfig = useRuntimeConfig();
-const APP_NAME = runtimeConfig.public.appName;
+import type { Snackbar } from "@/types/snackbar";
+
 useHead({
-  titleTemplate: (titleChunk?: string): string => {
+  titleTemplate: (titleChunk?: string) => {
     const title = titleChunk ? `${titleChunk} | ${APP_NAME}` : APP_NAME;
     return title;
   },
 });
+
+useState<Snackbar>("snackbar", () => ({
+  isShow: false,
+  message: "",
+  type: "success",
+}));
 </script>
 
 <template>
@@ -15,5 +21,6 @@ useHead({
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+    <Snackbar />
   </div>
 </template>
