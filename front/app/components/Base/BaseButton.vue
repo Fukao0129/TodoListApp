@@ -3,10 +3,12 @@ export type BaseModalProps = {
   text: string;
   type?: "main" | "secondary" | "danger";
   leftIcon?: string;
+  isDisabled?: boolean;
 };
 const props = withDefaults(defineProps<BaseModalProps>(), {
   text: "Button",
   type: "main",
+  isDisabled: false,
 });
 
 const buttonClass = computed(() => {
@@ -15,7 +17,7 @@ const buttonClass = computed(() => {
 </script>
 
 <template>
-  <button :class="buttonClass">
+  <button :class="buttonClass" :disabled="isDisabled">
     <BaseIcon
       v-if="leftIcon"
       :icon="leftIcon"
@@ -33,6 +35,10 @@ button {
   border-radius: 3px;
   cursor: pointer;
   transition: background 0.3s ease;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 /** 種類によって背景色を変える */
