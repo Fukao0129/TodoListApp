@@ -4,27 +4,22 @@ const searchText = defineModel<string>("searchText");
 
 <template>
   <div class="search-input__wrapper">
-    <BaseIcon icon="search" class="search-icon" />
-    <input
-      v-model="searchText"
-      type="text"
-      placeholder="キーワードで検索"
-      class="search-input"
-    />
+    <BaseIcon icon="search" color="lightgray" />
+    <BaseInput v-model:text="searchText" placeholder="キーワードで検索" />
   </div>
 </template>
 
 <style scoped>
 .search-input__wrapper {
   position: relative;
-  .search-icon {
+  .font-awesome-icon {
     position: absolute;
     left: 5px;
     top: 50%;
     transform: translateY(-50%);
   }
-  .search-input {
-    padding-left: 1.8rem;
-  }
+}
+:deep(input) {
+  padding-left: 1.8rem;
 }
 </style>
