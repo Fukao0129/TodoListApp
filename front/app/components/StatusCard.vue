@@ -1,37 +1,34 @@
 <script setup lang="ts">
 import type { Status, UpdateStatusRequest } from "@/types/status";
+import { cloneDeep } from "lodash";
 
 export type StatusCardProps = {
   status: Status;
 };
-defineProps<StatusCardProps>();
+const props = defineProps<StatusCardProps>();
 
 const emit = defineEmits<{
-  onCheck: [boolean, number];
   onDelete: [number];
   onUpdate: [number, UpdateStatusRequest];
 }>();
 
-const isShowDropdownMenu = ref(false);
-const isEditMode = ref(false);
+const { validationErrors, clearErrorMessages } = useValidationErrors();
 
-/** テキストエリアにフォーカスする */
-const focusOnInput = () => {
-  const inputElement = document.querySelector(
-    ".status-edit__input"
-  ) as HTMLInputElement | null;
-  if (inputElement) {
-    inputElement.focus();
-  }
-};
+const isShowDropdownMenu = ref(false); // ドロップダウンメニュー表示フラグ
+const isEditMode = ref(false); // 編集モードフラグ
+const statusInitName = cloneDeep(props.status.name); // 初期化用
 
-/** 編集モードにしたらドロップダウンメニューを閉じる */
+/** 編集モードになったらドロップダウンメニューを閉じて、ステータス名の入力欄にフォーカスする */
 watch(isEditMode, (newVal) => {
+  clearErrorMessages();
   if (newVal) {
-    nextTick(() => {
-      focusOnInput();
-    });
     isShowDropdownMenu.value = false;
+    nextTick(() => {
+      focusOnElement(".status-edit__wrapper input");
+    });
+  } else {
+    /** 編集モード終了時に入力欄を初期値に戻す */
+    props.status.name = statusInitName;
   }
 });
 </script>
@@ -40,7 +37,13 @@ watch(isEditMode, (newVal) => {
   <BaseCard class="status-card">
     <p v-if="!isEditMode">{{ status.name }}</p>
     <div v-else class="status-edit__wrapper">
-      <input v-model="status.name" type="text" class="status-edit__input" />
+      <div class="">
+        <BaseInput
+          v-model:text="status.name"
+          placeholder="ステータス名を入力"
+          :error-message="validationErrors['update-status.name']"
+        />
+      </div>
       <BaseButton
         :text="CANCEL_BUTTON_TEXT"
         type="secondary"
