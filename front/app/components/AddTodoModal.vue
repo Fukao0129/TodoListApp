@@ -8,17 +8,18 @@ const emit = defineEmits<{
 }>();
 
 const { validationErrors, clearErrorMessages } = useValidationErrors();
+const { user } = useUserStore();
 
 // フォーム
-const formData = computed<CreateTodoRequest>(() => ({
+const formData = ref<CreateTodoRequest>({
   title: "",
   description: "",
   priority: PRIORITY.LOW.value,
-  user_id: 1,
+  user_id: user.id,
   status_id: DEFAULT_STATUSES.NOT_STARTED.value,
   due_date: "",
   reminder_at: "",
-}));
+});
 
 /** 追加ボタン押下 */
 const onClickSubmit = () => {
@@ -79,7 +80,11 @@ watch(isShow, (newVal) => {
       </form>
     </template>
     <template #footer>
-      <BaseButton :text="CANCEL_BUTTON_TEXT" type="secondary" @click="isShow = false" />
+      <BaseButton
+        :text="CANCEL_BUTTON_TEXT"
+        type="secondary"
+        @click="isShow = false"
+      />
       <BaseButton :text="ADD_BUTTON_TEXT" @click="onClickSubmit" />
     </template>
   </BaseModal>
