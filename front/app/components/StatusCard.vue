@@ -55,6 +55,7 @@ watch(isEditMode, (newVal) => {
           emit('onUpdate', status.id, {
             name: status.name,
             order: status.order,
+            user_id: status.user_id,
           })
         "
       />

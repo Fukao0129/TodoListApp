@@ -8,11 +8,13 @@ const emit = defineEmits<{
 }>();
 
 const { validationErrors, clearErrorMessages } = useValidationErrors();
+const { user } = useUserStore();
 
 // ステータス追加フォーム
 const formData = ref<CreateStatusRequest>({
   name: "",
   order: 0,
+  user_id: user.id,
 });
 
 /** 追加ボタン押下 */
@@ -46,7 +48,11 @@ watch(isShow, (newVal) => {
       </form>
     </template>
     <template #footer>
-      <BaseButton :text="CANCEL_BUTTON_TEXT" type="secondary" @click="isShow = false" />
+      <BaseButton
+        :text="CANCEL_BUTTON_TEXT"
+        type="secondary"
+        @click="isShow = false"
+      />
       <BaseButton :text="ADD_BUTTON_TEXT" @click="onClickSubmit" />
     </template>
   </BaseModal>
