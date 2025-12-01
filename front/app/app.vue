@@ -2,10 +2,8 @@
 import type { Snackbar } from "@/types/snackbar";
 
 useHead({
-  titleTemplate: (titleChunk?: string) => {
-    const title = titleChunk ? `${titleChunk} | ${APP_NAME}` : APP_NAME;
-    return title;
-  },
+  titleTemplate: (titleChunk?: string) =>
+    titleChunk ? `${titleChunk} | ${APP_NAME}` : APP_NAME,
 });
 
 useState<Snackbar>("snackbar", () => ({
@@ -18,9 +16,7 @@ useState<Snackbar>("snackbar", () => ({
 <template>
   <div>
     <NuxtLoadingIndicator />
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <NuxtPage />
     <Snackbar />
   </div>
 </template>
