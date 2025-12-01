@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->unsignedBigInteger('user_id')->comment('ユーザID')->nullable();
             $table->integer('order')->unique();
             $table->integer('is_updatable')->default(1);
             $table->timestamps();
             $table->softDeletes();
+
+            // 外部キー制約
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
