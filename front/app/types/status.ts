@@ -2,6 +2,7 @@
 type BaseStatus = {
   name: string;
   order: number;
+  user_id: number;
 };
 
 // GETレスポンス
