@@ -1,0 +1,53 @@
+<script setup lang="ts">
+import type { CreateStatusRequest } from "@/types/status";
+
+const isShow = defineModel<boolean>("isShow");
+
+const emit = defineEmits<{
+  submit: [typeof formData.value];
+}>();
+
+const { validationErrors, clearErrorMessages } = useValidationErrors();
+
+// ステータス追加フォーム
+const formData = ref<CreateStatusRequest>({
+  name: "",
+  order: 0,
+});
+
+/** 追加ボタン押下 */
+const onClickSubmit = () => {
+  emit("submit", formData.value);
+};
+
+/** ステータス名の入力欄にフォーカスする */
+watch(isShow, (newVal) => {
+  clearErrorMessages();
+  formData.value.name = "";
+  if (newVal) {
+    nextTick(() => {
+      focusOnElement(".status-add__form input");
+    });
+  }
+});
+</script>
+
+<template>
+  <BaseModal v-model:is-show="isShow" title="ステータスを追加する">
+    <template #content>
+      <form class="status-add__form" @submit.prevent="onClickSubmit">
+        <FormItem label="ステータス名" :has-border="false">
+          <BaseInput
+            v-model:text="formData.name"
+            placeholder="ステータス名を入力"
+            :error-message="validationErrors['add-status.name']"
+          />
+        </FormItem>
+      </form>
+    </template>
+    <template #footer>
+      <BaseButton text="キャンセル" type="secondary" @click="isShow = false" />
+      <BaseButton :text="ADD_BUTTON_TEXT" @click="onClickSubmit" />
+    </template>
+  </BaseModal>
+</template>
