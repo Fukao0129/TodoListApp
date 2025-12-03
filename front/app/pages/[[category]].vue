@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Todo, CreateTodoRequest, UpdateTodoRequest } from "@/types/todo";
 import type { Status } from "@/types/status";
-import BaseText from "~/components/Base/BaseText.vue";
 
 const route = useRoute();
 const { showSnackbar } = useSnackbar();
@@ -19,35 +18,6 @@ const searchParams = ref({
   is_trashed: BOOLEAN.FALSE,
   is_today: BOOLEAN.FALSE,
 });
-
-// 並び替え選択肢
-const sortOptions = [
-  {
-    label: "期日が近い順",
-    sort: "due_date",
-    direction: SORT_DIRECTION.ASC.value,
-  },
-  {
-    label: "期日が遠い順",
-    sort: "due_date",
-    direction: SORT_DIRECTION.DESC.value,
-  },
-  {
-    label: "優先度が高い順",
-    sort: "priority",
-    direction: SORT_DIRECTION.DESC.value,
-  },
-  {
-    label: "優先度が低い順",
-    sort: "priority",
-    direction: SORT_DIRECTION.ASC.value,
-  },
-  {
-    label: "新しい順",
-    sort: "created_at",
-    direction: SORT_DIRECTION.DESC.value,
-  },
-];
 
 /** Todo一覧取得 */
 const {
@@ -166,7 +136,7 @@ const onTrashCompletedTodos = () => {
 const selectedSortIndex = ref(0);
 const onSortChange = (event: Event) => {
   selectedSortIndex.value = parseInt((event.target as HTMLSelectElement).value);
-  const option = sortOptions[selectedSortIndex.value];
+  const option = SORT_OPTIONS[selectedSortIndex.value];
   if (option) {
     searchParams.value.sort = option.sort;
     searchParams.value.direction = option.direction;
@@ -193,9 +163,8 @@ watch(
 
 <template>
   <NuxtLayout>
-    <BreadCrumb
-      :breadcrumb="[{ label: 'ホーム', link: '/' }, { label: pageTitle }]"
-    />
+    <BreadCrumb v-if="category" :breadcrumb="[{ label: pageTitle }]" />
+
     <h1>{{ pageTitle }}</h1>
 
     <BaseCard>
@@ -205,7 +174,7 @@ watch(
         <BaseSelect
           v-model:selected-value="selectedSortIndex"
           :options="
-            sortOptions.map((option, index) => ({
+            SORT_OPTIONS.map((option, index) => ({
               id: index,
               name: option.label,
             }))

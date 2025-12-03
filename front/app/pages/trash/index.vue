@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Todo, UpdateTodoRequest } from "@/types/todo";
 
-useHead({ title: "ゴミ箱" });
+const PAGE_TITLE = "ゴミ箱";
+useHead({ title: PAGE_TITLE });
 
 const { showSnackbar } = useSnackbar();
 const { useCustomFetch, callApi } = useApi();
@@ -60,8 +61,10 @@ const onBulkDelete = () => {
 
 <template>
   <NuxtLayout>
+    <BreadCrumb :breadcrumb="[{ label: PAGE_TITLE }]" />
+
     <div class="trash-page__header">
-      <h1>ゴミ箱</h1>
+      <h1>{{ PAGE_TITLE }}</h1>
       <BaseButton
         text="ゴミ箱を空にする"
         :is-disabled="todoListData?.length === 0"

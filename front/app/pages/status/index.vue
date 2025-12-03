@@ -5,9 +5,8 @@ import type {
   UpdateStatusRequest,
 } from "@/types/status";
 
-useHead({
-  title: "ステータス設定",
-});
+const PAGE_TITLE = "ステータス設定";
+useHead({ title: PAGE_TITLE });
 
 const { showSnackbar } = useSnackbar();
 const { useCustomFetch, callApi } = useApi();
@@ -70,7 +69,10 @@ const onDeleteStatus = (statusId: number) => {
 
 <template>
   <NuxtLayout>
-    <h1>ステータス設定</h1>
+    <BreadCrumb :breadcrumb="[{ label: PAGE_TITLE }]" />
+
+    <h1>{{ PAGE_TITLE }}</h1>
+
     <BaseText color="secondary" size="small">
       <span
         v-for="status in Object.values(DEFAULT_STATUSES)"
