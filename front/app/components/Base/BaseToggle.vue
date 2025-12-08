@@ -4,9 +4,8 @@ export type BaseToggleProps = {
 };
 defineProps<BaseToggleProps>();
 
-const isOn = defineModel<boolean>("isOn");
-
 /** ON/OFF切り替え */
+const isOn = defineModel<boolean>("isOn");
 const onToggle = () => {
   isOn.value = !isOn.value;
 };
@@ -14,7 +13,9 @@ const onToggle = () => {
 
 <template>
   <div class="toggle__wrapper">
-    <span class="toggle__label">{{ label }}</span>
+    <BaseText v-if="label" size="small" color="secondary" tag="label">{{
+      label
+    }}</BaseText>
     <div
       class="toggle__button"
       :class="{ 'is-on': isOn }"
@@ -32,10 +33,6 @@ const onToggle = () => {
   display: flex;
   align-items: center;
   gap: 0.3rem;
-
-  .toggle__label {
-    font-size: 0.8rem;
-  }
 
   .toggle__button {
     width: 2.2rem;
