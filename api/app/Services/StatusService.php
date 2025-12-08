@@ -13,10 +13,7 @@ class StatusService
     public function __construct(
         private StatusRepository $statusRepository,
         private TodoRepository $todoRepository
-    ) {
-        $this->statusRepository = $statusRepository;
-        $this->todoRepository = $todoRepository;
-    }
+    ) {}
 
     /**
      * 全件取得
@@ -63,7 +60,6 @@ class StatusService
         DB::beginTransaction();
         try {
             $res = $this->statusRepository->update($status_id, $data);
-            // $res = true;
             $status = Response::HTTP_OK;
             DB::commit();
         } catch (\Exception $e) {
@@ -91,8 +87,6 @@ class StatusService
             foreach ($untaggedTodos[0] as $todo) {
                 $this->todoRepository->update($todo->id, ['status_id' => 1]);
             }
-
-           //  $res = true;
             $status = Response::HTTP_OK;
             DB::commit();
         } catch (\Exception $e) {

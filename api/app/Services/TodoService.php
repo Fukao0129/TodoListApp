@@ -11,9 +11,7 @@ class TodoService
     // 依存性注入
     public function __construct(
         private TodoRepository $todoRepository
-    ) {
-        $this->todoRepository = $todoRepository;
-    }
+    ) {}
 
     /**
      * 全件取得
@@ -48,8 +46,7 @@ class TodoService
     {
         DB::beginTransaction();
         try {
-             $res = $this->todoRepository->update($todo_id, $data);
-            // $res = true;
+            $res = $this->todoRepository->update($todo_id, $data);
             $status = Response::HTTP_OK;
             DB::commit();
         } catch (\Exception $e) {
@@ -70,8 +67,7 @@ class TodoService
     {
         DB::beginTransaction();
         try {
-             $res = $this->todoRepository->store($data);
-            // $res = true;
+            $res = $this->todoRepository->store($data);
             $status = Response::HTTP_OK;
             DB::commit();
         } catch (\Exception $e) {
