@@ -15,7 +15,7 @@ withDefaults(defineProps<FormItemProps>(), {
     class="form-item__wrapper"
     :class="{ 'form-item__wrapper--has-border': hasBorder }"
   >
-    <label>{{ label }}</label>
+    <label v-if="label">{{ label }}</label>
     <slot />
   </div>
 </template>
