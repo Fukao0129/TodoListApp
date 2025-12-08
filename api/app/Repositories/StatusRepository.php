@@ -20,6 +20,7 @@ class StatusRepository
             "name",
             "order",
             "is_updatable",
+            "user_id",
         ])->orderBy('order', 'asc')
             ->where(function ($query) {
                 $query->where("user_id", Auth::id())
