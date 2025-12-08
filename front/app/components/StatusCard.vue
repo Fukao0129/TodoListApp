@@ -49,18 +49,12 @@ watch(isEditMode, (newVal) => {
       />
       <BaseButton
         :text="UPDATE_BUTTON_TEXT"
-        @click="
-          emit('onUpdate', status.id, {
-            name: status.name,
-            order: status.order,
-            user_id: status.user_id,
-          })
-        "
+        @click="emit('onUpdate', status.id, status)"
       />
     </div>
     <DropdownMenu
       v-model:is-show="isShowDropdownMenu"
-      @closeDropdown="isShowDropdownMenu = false"
+      @close-dropdown="isShowDropdownMenu = false"
     >
       <template #trigger>
         <BaseIcon
@@ -73,24 +67,25 @@ watch(isEditMode, (newVal) => {
       </template>
 
       <template #contents>
-        <div
-          class="dropdown__item"
-          tabindex="0"
-          @click="isEditMode = !isEditMode"
-          @keydown.enter="isEditMode = !isEditMode"
-        >
-          <BaseIcon icon="pen" />
-          <span>{{ EDIT_BUTTON_TEXT }}</span>
-        </div>
-        <div
-          class="dropdown__item"
-          tabindex="0"
-          @click="emit('onDelete', status.id)"
-          @keydown.enter="emit('onDelete', status.id)"
-        >
-          <BaseIcon icon="trash" color="error" />
-          <span>{{ DELETE_BUTTON_TEXT }}</span>
-        </div>
+        <DropdownMenuItem
+          icon="pen"
+          label="編集"
+          :event="
+            () => {
+              isEditMode = !isEditMode;
+            }
+          "
+        />
+        <DropdownMenuItem
+          icon="trash"
+          icon-color="error"
+          label="削除"
+          :event="
+            () => {
+              emit('onDelete', status.id);
+            }
+          "
+        />
       </template>
     </DropdownMenu>
   </BaseCard>

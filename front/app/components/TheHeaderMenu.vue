@@ -1,7 +1,5 @@
 <script setup lang="ts">
 const { logout } = useSanctumAuth();
-// const userStore = useUserStore();
-// const userData = computed(() => userStore.user);
 const { user } = useUserStore();
 </script>
 
@@ -11,31 +9,31 @@ const { user } = useUserStore();
     <BaseText>{{ user?.name }}</BaseText>
     <BaseText size="small" color="secondary">{{ user?.email }}</BaseText>
   </div>
-  <div
-    class="dropdown__item header__menu"
-    tabindex="0"
-    @click="logout()"
-    @keydown.enter="logout()"
-  >
-    <BaseIcon icon="arrow-right-from-bracket" color="secondary" />
-    <BaseText>設定</BaseText>
-  </div>
-  <div
-    class="dropdown__item header__menu"
-    tabindex="0"
-    @click="logout()"
-    @keydown.enter="logout()"
-  >
-    <BaseIcon icon="arrow-right-from-bracket" color="secondary" />
-    <BaseText>ログアウト</BaseText>
-  </div>
+  <DropdownMenuItem
+    icon="user-gear"
+    icon-color="secondary"
+    label="設定"
+    :event="
+      () => {
+        navigateTo('/profile');
+      }
+    "
+  />
+  <DropdownMenuItem
+    icon="arrow-right-from-bracket"
+    icon-color="secondary"
+    label="ログアウト"
+    :event="
+      () => {
+        logout();
+      }
+    "
+  />
 </template>
 
 <style scoped>
 .header-user__wrapper {
   padding: 1rem;
-}
-.header__menu {
-  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 </style>

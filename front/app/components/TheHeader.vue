@@ -10,7 +10,7 @@ const isShowDropdownMenu = ref(false); // ドロップダウンメニュー表�
 
     <DropdownMenu
       v-model:is-show="isShowDropdownMenu"
-      @closeDropdown="isShowDropdownMenu = false"
+      @close-dropdown="isShowDropdownMenu = false"
     >
       <template #trigger>
         <BaseIcon

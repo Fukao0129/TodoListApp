@@ -5,9 +5,8 @@ const emit = defineEmits<{
   closeDropdown: [];
 }>();
 
-const wrapper = ref<HTMLElement | null>(null);
-
 /* ドロップダウンメニューの外側がクリックされたら非表示にする */
+const wrapper = ref<HTMLElement | null>(null);
 const onClickOutside = (event: MouseEvent) => {
   if (!wrapper.value?.contains(event.target as Node)) emit("closeDropdown");
 };
@@ -41,19 +40,5 @@ onBeforeUnmount(() => {
   background: white;
   width: max-content;
   z-index: 1;
-}
-</style>
-
-<style>
-.dropdown__item {
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: all 200ms 0s ease;
-  &:hover {
-    background: var(--hover-color);
-  }
 }
 </style>
