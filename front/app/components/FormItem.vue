@@ -1,13 +1,13 @@
 <script setup lang="ts">
-export type FormItemProps = {
-  label?: string;
-  hasBorder?: boolean;
-};
-
-withDefaults(defineProps<FormItemProps>(), {
-  label: "",
-  hasBorder: true,
-});
+withDefaults(
+  defineProps<{
+    label?: string;
+    hasBorder?: boolean;
+  }>(),
+  {
+    hasBorder: true,
+  }
+);
 </script>
 
 <template>
@@ -15,7 +15,9 @@ withDefaults(defineProps<FormItemProps>(), {
     class="form-item__wrapper"
     :class="{ 'form-item__wrapper--has-border': hasBorder }"
   >
-    <label v-if="label">{{ label }}</label>
+    <BaseText v-if="label" tag="label" bold class="form__label">{{
+      label
+    }}</BaseText>
     <slot />
   </div>
 </template>
@@ -26,11 +28,9 @@ withDefaults(defineProps<FormItemProps>(), {
   align-items: center;
   gap: 1rem;
   padding: 0.5rem 0;
-  label {
+  width: 100%;
+  .form__label {
     flex: 0 1 10%;
-    font-size: 0.9rem;
-    font-weight: bold;
-    white-space: nowrap;
   }
 }
 .form-item__wrapper--has-border {

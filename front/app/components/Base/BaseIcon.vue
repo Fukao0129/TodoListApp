@@ -1,21 +1,17 @@
 <script setup lang="ts">
-export type BaseIconProps = {
-  icon: string;
-  color?:
-    | "primary"
-    | "default"
-    | "secondary"
-    | "success"
-    | "warning"
-    | "error"
-    | "white";
-  isClickable?: boolean;
-};
+import type { ColorVariant } from "@/constants/colors";
 
-withDefaults(defineProps<BaseIconProps>(), {
-  color: "default",
-  isClickable: false,
-});
+withDefaults(
+  defineProps<{
+    icon: string;
+    color?: ColorVariant;
+    isClickable?: boolean;
+  }>(),
+  {
+    color: "default",
+    isClickable: false,
+  }
+);
 </script>
 
 <template>

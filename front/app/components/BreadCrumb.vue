@@ -1,8 +1,7 @@
 <script setup lang="ts">
-export type BreadcrumbProps = {
+const props = defineProps<{
   breadcrumb: { label: string; link?: string }[];
-};
-const props = defineProps<BreadcrumbProps>();
+}>();
 const breadcrumbList = [{ label: "ホーム", link: "/" }, ...props.breadcrumb];
 </script>
 

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-export type BaseToggleProps = {
+defineProps<{
   label?: string;
-};
-defineProps<BaseToggleProps>();
+}>();
 
 /** ON/OFF切り替え */
 const isOn = defineModel<boolean>("isOn");

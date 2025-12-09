@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import type { Todo, UpdateTodoRequest } from "@/types/todo";
 import type { Status } from "@/types/status";
-import type { BaseSelectProps } from "@/components/Base/BaseSelect.vue";
+import type { SelectOption } from "@/types/select-option";
 
-export type TodoCardProps = {
-  todo: Todo;
-  isTrash?: boolean;
-  statuses?: Status[];
-};
-const props = withDefaults(defineProps<TodoCardProps>(), {
-  isTrash: false,
-});
+const props = withDefaults(
+  defineProps<{
+    todo: Todo;
+    isTrash?: boolean;
+    statuses?: Status[];
+  }>(),
+  {
+    isTrash: false,
+  }
+);
 
 const emit = defineEmits<{
   onClickSubmit: [UpdateTodoRequest]; // 編集
@@ -139,7 +141,7 @@ watch(isEditMode, (newVal) => {
             <BaseSelect
               v-if="isEditMode"
               v-model:selected-value="formData.status_id"
-              :options="statuses as BaseSelectProps['options']"
+              :options="statuses as SelectOption[]"
             />
             <BaseText v-else>{{ todo.status.name }}</BaseText>
           </FormItem>

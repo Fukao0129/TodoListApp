@@ -1,15 +1,17 @@
 <script setup lang="ts">
-export type BaseModalProps = {
-  text: string;
-  type?: "primary" | "secondary" | "danger";
-  leftIcon?: string;
-  isDisabled?: boolean;
-};
-const props = withDefaults(defineProps<BaseModalProps>(), {
-  text: "Button",
-  type: "primary",
-  isDisabled: false,
-});
+const props = withDefaults(
+  defineProps<{
+    text: string;
+    type?: "primary" | "secondary" | "danger";
+    leftIcon?: string;
+    isDisabled?: boolean;
+  }>(),
+  {
+    text: "Button",
+    type: "primary",
+    isDisabled: false,
+  }
+);
 
 const buttonClass = computed(() => {
   return `base-button--${props.type}`;

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-export type BaseSelectProps = {
-  options: { id: number; name: string }[];
-};
-defineProps<BaseSelectProps>();
+import type { SelectOption } from "@/types/select-option";
+
+defineProps<{
+  options: SelectOption[];
+}>();
 
 const selectedValue = defineModel<number>("selectedValue");
 </script>

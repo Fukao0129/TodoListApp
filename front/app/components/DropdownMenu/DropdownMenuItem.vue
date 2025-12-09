@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import type { BaseIconProps } from "@/components/Base/BaseIcon.vue";
+import type { ColorVariant } from "@/constants/colors";
 
-export type DropdownMenuItemProps = {
+defineProps<{
   icon?: string;
-  iconColor?: BaseIconProps["color"];
+  iconColor?: ColorVariant;
   label: string;
   event: (e?: Event) => void;
-};
-defineProps<DropdownMenuItemProps>();
+}>();
 </script>
 
 <template>

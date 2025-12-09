@@ -1,10 +1,12 @@
 <script setup lang="ts">
-export type BaseModalProps = {
-  backgroundColor?: "white" | "disabled";
-};
-withDefaults(defineProps<BaseModalProps>(), {
-  backgroundColor: "white",
-});
+withDefaults(
+  defineProps<{
+    backgroundColor?: "white" | "disabled";
+  }>(),
+  {
+    backgroundColor: "white",
+  }
+);
 </script>
 
 <template>

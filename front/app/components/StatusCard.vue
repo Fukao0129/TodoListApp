@@ -2,10 +2,9 @@
 import type { Status, UpdateStatusRequest } from "@/types/status";
 import { cloneDeep } from "lodash";
 
-export type StatusCardProps = {
+const props = defineProps<{
   status: Status;
-};
-const props = defineProps<StatusCardProps>();
+}>();
 
 const emit = defineEmits<{
   onDelete: [number];

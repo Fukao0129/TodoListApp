@@ -1,10 +1,9 @@
 <script setup lang="ts">
-export type BaseInputProps = {
+defineProps<{
   placeholder?: string;
   errorMessage?: string[];
   label?: string;
-};
-defineProps<BaseInputProps>();
+}>();
 
 const text = defineModel<string>("text");
 </script>
@@ -29,6 +28,7 @@ const text = defineModel<string>("text");
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+  width: 100%;
 }
 input {
   padding: 0.3rem 0.5rem;

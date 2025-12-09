@@ -1,8 +1,7 @@
 <script setup lang="ts">
-export type BaseTextareaProps = {
+defineProps<{
   placeholder?: string;
-};
-defineProps<BaseTextareaProps>();
+}>();
 
 const text = defineModel<string | null>("text");
 </script>

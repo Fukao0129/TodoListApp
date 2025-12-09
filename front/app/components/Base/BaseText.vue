@@ -1,65 +1,33 @@
 <script setup lang="ts">
-const PRESET_SIZES = ["small", "default", "large"] as const;
+import type { ColorVariant } from "@/constants/colors";
 
-export type BaseTextProps = {
-  tag?: "p" | "span" | "label";
-  size?: (typeof PRESET_SIZES)[number] | string;
-  color?:
-    | "primary"
-    | "default"
-    | "secondary"
-    | "success"
-    | "warning"
-    | "error"
-    | "white";
-  align?: "left" | "center" | "right" | "justify";
-  bold?: boolean;
-};
-
-const props = withDefaults(defineProps<BaseTextProps>(), {
-  tag: "p",
-  size: "default",
-  color: "default",
-  align: "left",
-  bold: false,
-});
-
-const classes = computed(() => {
-  // sizeが自由指定の場合はclassを付与しない
-  const isPresetSize = PRESET_SIZES.includes(
-    props.size as (typeof PRESET_SIZES)[number]
-  );
-
-  return {
-    [`text--${props.color}`]: true,
-    [`text--align-${props.align}`]: true,
-    [`text--size-${props.size}`]: isPresetSize,
-    "text--bold": props.bold,
-  };
-});
-
-/**
- * フォントサイズはインラインスタイルでも細かく自由指定できるようにする
- * (例外的なケースでのみ使う)
- * 単位付きで指定すればそのまま、数字のみの場合はremとして扱う
- */
-const styles = computed(() => {
-  if (
-    !props.size ||
-    PRESET_SIZES.includes(props.size as (typeof PRESET_SIZES)[number])
-  ) {
-    return {};
+const props = withDefaults(
+  defineProps<{
+    tag?: "p" | "span" | "label";
+    size?: "small" | "default" | "large";
+    color?: ColorVariant;
+    align?: "left" | "center" | "right" | "justify";
+    bold?: boolean;
+  }>(),
+  {
+    tag: "p",
+    size: "default",
+    color: "default",
+    align: "left",
+    bold: false,
   }
-  const fontSize = !isNaN(Number(props.size)) ? `${props.size}rem` : props.size;
+);
 
-  return {
-    fontSize,
-  };
-});
+const classes = computed(() => [
+  `text--${props.color}`,
+  `text--align-${props.align}`,
+  `text--size-${props.size}`,
+  { "text--bold": props.bold },
+]);
 </script>
 
 <template>
-  <component :is="tag" :class="classes" :style="styles">
+  <component :is="tag" :class="classes">
     <slot />
   </component>
 </template>
