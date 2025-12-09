@@ -50,6 +50,7 @@ class TodoRequest extends FormRequest
                     'reminder_at' => ['nullable', 'date'],
                     'due_date' => ['nullable', 'date'],
                     'user_id' => ['required', 'integer', Rule::in([Auth::id()])],
+                    'is_trashed' => ['required', 'integer'],
                 ];
                 break;
             default:
