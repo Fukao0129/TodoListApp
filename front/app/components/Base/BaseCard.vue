@@ -1,16 +1,16 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    backgroundColor?: "white" | "disabled";
+    variant?: "white" | "disabled";
   }>(),
   {
-    backgroundColor: "white",
+    variant: "white",
   }
 );
 </script>
 
 <template>
-  <div class="card" :class="`card--${backgroundColor}`">
+  <div class="card" :class="`card--${variant}`">
     <slot />
   </div>
 </template>

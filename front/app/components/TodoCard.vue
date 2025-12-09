@@ -42,7 +42,7 @@ watch(isEditMode, (newVal) => {
 <template>
   <BaseCard
     class="todo-card"
-    :background-color="
+    :variant="
       todo.status_id == DEFAULT_STATUSES.COMPLETED.value ? 'disabled' : 'white'
     "
   >
