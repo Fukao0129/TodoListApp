@@ -1,4 +1,4 @@
-import type { BaseTextProps } from "@/components/Base/BaseText.vue";
+import type { ColorVariant } from "@/constants/colors";
 
 /** 優先度の数値をラベルに変換する */
 export const formatPriorityLabel = (priority: number) => {
@@ -8,10 +8,9 @@ export const formatPriorityLabel = (priority: number) => {
 };
 
 /** 優先度に対応する色を取得する */
-export const formatPriorityColor = (
-  priority: number
-): BaseTextProps["color"] => {
+export const formatPriorityColor = (priority: number): ColorVariant => {
   return (
-    Object.values(PRIORITY).find((p) => p.value === priority)?.color ?? "info"
+    Object.values(PRIORITY).find((p) => p.value === priority)?.color ??
+    "success"
   );
 };
