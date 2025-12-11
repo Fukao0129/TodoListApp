@@ -2,6 +2,7 @@ FROM php:8.2-fpm-alpine
 
 # 必要なパッケージのインストール
 RUN apk add --no-cache \
+    bash \
     git \
     curl \
     zip \
