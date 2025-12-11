@@ -8,14 +8,14 @@ RUN apk add --no-cache \
     zip \
     unzip
 
+COPY / /var/www/html
+
 # Composerのインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 
 # PHP拡張機能のインストール
 RUN docker-php-ext-install pdo_mysql 
-
-COPY / /var/www/html
 
 WORKDIR /var/www/html
 RUN chmod 777 -R /var/www/html/storage
