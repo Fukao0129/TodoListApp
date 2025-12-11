@@ -12,7 +12,8 @@ COPY / /var/www/html
 
 # Composerのインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install 
+#--no-dev --optimize-autoloader
 
 # PHP拡張機能のインストール
 RUN docker-php-ext-install pdo_mysql 
