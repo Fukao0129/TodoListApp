@@ -30,6 +30,8 @@ export default defineNuxtConfig({
     endpoints: {
       // csrf: "/api/sanctum/csrf-cookie",
       user: "/api/me",
+      login: "/api/login",
+      logout: "/api/logout",
     },
     globalMiddleware: {
       enabled: true,
@@ -42,11 +44,11 @@ export default defineNuxtConfig({
     "/sanctum/csrf-cookie": {
       proxy: "https://api-production-597b.up.railway.app/sanctum/csrf-cookie",
     },
-    "/login": {
-      proxy: "https://api-production-597b.up.railway.app/login",
-    },
-    "/logout": {
-      proxy: "https://api-production-597b.up.railway.app/logout",
-    },
+    // "/login": {
+    //   proxy: "https://api-production-597b.up.railway.app/login",
+    // },
+    // "/logout": {
+    //   proxy: "https://api-production-597b.up.railway.app/logout",
+    // },
   },
 });
