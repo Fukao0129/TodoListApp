@@ -23,7 +23,7 @@ export default defineNuxtConfig({
 
   // 認証関連の設定 https://sanctum.manchenkoff.me/usage/configuration
   sanctum: {
-    baseUrl: "https://web-production-066eed.up.railway.app/", // "http://localhost",
+    baseUrl: "http://localhost",
     redirect: {
       onLogout: "/login", // ログアウト後のリダイレクト先
     },
@@ -40,9 +40,6 @@ export default defineNuxtConfig({
     routeRules: {
       "/api/**": {
         proxy: "https://api-production-597b.up.railway.app/api/**",
-        headers: {
-            Accept: "application/json",
-        },
       },
       "/sanctum/csrf-cookie": {
         proxy: "https://api-production-597b.up.railway.app/sanctum/csrf-cookie",
