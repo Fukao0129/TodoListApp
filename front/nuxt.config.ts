@@ -28,10 +28,16 @@ export default defineNuxtConfig({
       onLogout: "/login", // ログアウト後のリダイレクト先
     },
     endpoints: {
+      csrf: "/api/sanctum/csrf-cookie",
       user: "/api/me",
     },
     globalMiddleware: {
       enabled: true,
+    },
+  },
+  routeRules: {
+    "/api/**": {
+      proxy: "https://api-production-597b.up.railway.app/**",
     },
   },
 });
