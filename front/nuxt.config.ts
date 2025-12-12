@@ -23,12 +23,11 @@ export default defineNuxtConfig({
 
   // 認証関連の設定 https://sanctum.manchenkoff.me/usage/configuration
   sanctum: {
-    baseUrl: "https://api-production-597b.up.railway.app", // "http://localhost",
+    baseUrl: "https://web-production-066eed.up.railway.app/", // "http://localhost",
     redirect: {
       onLogout: "/login", // ログアウト後のリダイレクト先
     },
     endpoints: {
-      // csrf: "/api/sanctum/csrf-cookie",
       user: "/api/me",
       login: "/api/login",
       logout: "/api/logout",
@@ -44,11 +43,5 @@ export default defineNuxtConfig({
     "/sanctum/csrf-cookie": {
       proxy: "https://api-production-597b.up.railway.app/sanctum/csrf-cookie",
     },
-    // "/login": {
-    //   proxy: "https://api-production-597b.up.railway.app/login",
-    // },
-    // "/logout": {
-    //   proxy: "https://api-production-597b.up.railway.app/logout",
-    // },
   },
 });
