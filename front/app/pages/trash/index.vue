@@ -18,7 +18,7 @@ const searchParams = ref({
 /** Todo一覧取得 */
 const {
   data: todoListData,
-  status,
+  pending,
   refresh,
 } = useCustomFetch<Todo[]>(`/todos`, {
   params: searchParams.value,
@@ -76,33 +76,27 @@ const onBulkDelete = () => {
       >{{ todoListData?.length }}件</BaseText
     >
 
-    <BaseCard class="todo-list__wrapper">
-      <BaseText
-        v-if="status == 'pending'"
-        size="small"
-        color="secondary"
-        align="center"
-        >{{ LOADING_TEXT }}</BaseText
-      >
+    <!--ゴミ箱-->
+    <AsyncDataCard
+      :data-length="todoListData?.length || 0"
+      :pending
+      no-data-text="ゴミ箱は空っぽです。気持ちいいですね！"
+    >
       <TodoCard
-        v-else
         v-for="todo in todoListData"
         :key="todo.id"
-        :todo
+        :todo="todo"
         is-trash
         @on-restore="onRestoreTodo"
       />
-      <div v-if="todoListData?.length === 0">
+      <div v-if="todoListData?.length === 0 && !pending">
         <img
           src="/assets/img/empty-trash.svg"
           alt="ゴミ箱は空っぽ"
           class="trash-empty__image"
         />
-        <BaseText color="secondary" align="center"
-          >ゴミ箱は空っぽです。気持ちいいですね！</BaseText
-        >
       </div>
-    </BaseCard>
+    </AsyncDataCard>
   </NuxtLayout>
 </template>
 
@@ -111,12 +105,6 @@ const onBulkDelete = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.todo-list__wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
 }
 .trash-empty__image {
   max-width: 10rem;

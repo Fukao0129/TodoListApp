@@ -22,7 +22,7 @@ const searchParams = ref({
 /** Todo一覧取得 */
 const {
   data: todoListData,
-  status,
+  pending,
   refresh,
 } = useCustomFetch<Todo[]>(`/todos`, {
   query: searchParams.value,
@@ -167,8 +167,8 @@ watch(
 
     <h1>{{ pageTitle }}</h1>
 
+    <!--検索条件-->
     <BaseCard>
-      <!--検索条件-->
       <div class="search-area__wrapper">
         <SearchInput v-model:search-text="searchParams.q" />
         <BaseSelect
@@ -200,16 +200,9 @@ watch(
       >{{ filteredTodoList?.length }}件</BaseText
     >
 
-    <BaseCard class="todo-list__wrapper">
-      <BaseText
-        v-if="status == 'pending'"
-        size="small"
-        color="secondary"
-        align="center"
-        >{{ LOADING_TEXT }}</BaseText
-      >
+    <!--Todo一覧-->
+    <AsyncDataCard :data-length="filteredTodoList?.length || 0" :pending>
       <TodoCard
-        v-else
         v-for="todo in filteredTodoList"
         :key="todo.id"
         :todo
@@ -218,15 +211,7 @@ watch(
         @on-check="onSwitchTodoComplete"
         @on-trash="onTrashTodo"
       />
-      <BaseText
-        v-if="filteredTodoList?.length === 0 && status !== 'pending'"
-        size="small"
-        color="secondary"
-        align="center"
-      >
-        {{ NO_DATA_TEXT }}
-      </BaseText>
-    </BaseCard>
+    </AsyncDataCard>
 
     <AddIcon @click="isShowAddTodoModal = true" />
     <AddTodoModal v-model:is-show="isShowAddTodoModal" @submit="onAddTodo" />
@@ -242,12 +227,5 @@ watch(
   .trash-all__button {
     margin-left: auto;
   }
-}
-
-.todo-list__wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
 }
 </style>

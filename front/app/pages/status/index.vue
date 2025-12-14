@@ -17,7 +17,7 @@ const isShowAddStatusModal = ref(false); // ステータス追加モーダル表
 /** ステータス一覧取得 */
 const {
   data: statusData,
-  status,
+  pending,
   refresh,
 } = useCustomFetch<Status[]>(`/statuses`);
 
@@ -82,25 +82,16 @@ const onDeleteStatus = (statusId: number) => {
       は変更・削除できません。
     </BaseText>
 
-    <BaseCard>
-      <div class="status__wrapper">
-        <BaseText
-          v-if="status == 'pending'"
-          size="small"
-          color="secondary"
-          align="center"
-          >{{ LOADING_TEXT }}</BaseText
-        >
-        <StatusCard
-          v-else
-          v-for="status in statusData"
-          :key="status.id"
-          :status
-          @onDelete="onDeleteStatus"
-          @onUpdate="onUpdateStatus"
-        />
-      </div>
-    </BaseCard>
+    <!--ステータス一覧-->
+    <AsyncDataCard :pending="pending" :data-length="statusData?.length || 0">
+      <StatusCard
+        v-for="status in statusData"
+        :key="status.id"
+        :status
+        @onDelete="onDeleteStatus"
+        @onUpdate="onUpdateStatus"
+      />
+    </AsyncDataCard>
 
     <AddIcon @click="isShowAddStatusModal = true" />
     <AddStatusModal
@@ -109,12 +100,3 @@ const onDeleteStatus = (statusId: number) => {
     />
   </NuxtLayout>
 </template>
-
-<style scoped>
-.status__wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-}
-</style>
