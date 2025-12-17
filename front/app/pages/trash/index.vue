@@ -61,19 +61,20 @@ const onBulkDelete = () => {
 
 <template>
   <NuxtLayout>
-    <BreadCrumb :breadcrumb="[{ label: PAGE_TITLE }]" />
-
-    <div class="trash-page__header">
-      <h1>{{ PAGE_TITLE }}</h1>
-      <BaseButton
-        text="ゴミ箱を空にする"
-        :is-disabled="todoListData?.length === 0"
-        @click="onBulkDelete"
-      />
-    </div>
-
-    <!--件数表示-->
-    <DataCount :data-length="todoListData?.length" />
+    <!--ページ上部-->
+    <PageHeader
+      :title="PAGE_TITLE"
+      :data-length="todoListData?.length"
+      :breadcrumb="[{ label: PAGE_TITLE }]"
+    >
+      <template #tools>
+        <BaseButton
+          text="ゴミ箱を空にする"
+          :is-disabled="todoListData?.length === 0"
+          @click="onBulkDelete"
+        />
+      </template>
+    </PageHeader>
 
     <!--ゴミ箱-->
     <AsyncDataCard
@@ -100,11 +101,6 @@ const onBulkDelete = () => {
 </template>
 
 <style scoped>
-.trash-page__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .trash-empty__image {
   max-width: 10rem;
   margin: 1rem auto;

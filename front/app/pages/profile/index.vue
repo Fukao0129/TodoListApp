@@ -55,9 +55,12 @@ const onUpdatePassword = () => {
 
 <template>
   <NuxtLayout>
-    <BreadCrumb :breadcrumb="[{ label: PAGE_TITLE }]" />
-
-    <h1>{{ PAGE_TITLE }}</h1>
+    <!--ページ上部-->
+    <PageHeader
+      :title="PAGE_TITLE"
+      :breadcrumb="[{ label: PAGE_TITLE }]"
+      :has-data-length="false"
+    />
 
     <h2>ユーザー情報</h2>
     <BaseCard>

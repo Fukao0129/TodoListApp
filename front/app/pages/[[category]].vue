@@ -163,9 +163,22 @@ watch(
 
 <template>
   <NuxtLayout>
-    <BreadCrumb v-if="category" :breadcrumb="[{ label: pageTitle }]" />
-
-    <h1>{{ pageTitle }}</h1>
+    <!--ページ上部-->
+    <PageHeader
+      :title="pageTitle"
+      :data-length="todoListData?.length"
+      :breadcrumb="category ? [{ label: pageTitle }] : undefined"
+    >
+      <template #tools>
+        <BaseButton
+          v-if="!isFilterCompleted"
+          :text="`${DEFAULT_STATUSES.COMPLETED.label}をすべてゴミ箱に移動`"
+          left-icon="trash"
+          class="trash-all__button"
+          @click="onTrashCompletedTodos"
+        />
+      </template>
+    </PageHeader>
 
     <!--検索条件-->
     <BaseCard>
@@ -185,19 +198,8 @@ watch(
           v-model:is-on="isFilterCompleted"
           :label="`${DEFAULT_STATUSES.COMPLETED.label}を除く`"
         />
-
-        <BaseButton
-          v-if="!isFilterCompleted"
-          :text="`${DEFAULT_STATUSES.COMPLETED.label}をすべてゴミ箱に移動`"
-          left-icon="trash"
-          class="trash-all__button"
-          @click="onTrashCompletedTodos"
-        />
       </div>
     </BaseCard>
-
-    <!--件数表示-->
-    <DataCount :data-length="filteredTodoList?.length" />
 
     <!--Todo一覧-->
     <AsyncDataCard :data-length="filteredTodoList?.length || 0" :pending>
@@ -213,6 +215,7 @@ watch(
     </AsyncDataCard>
   </NuxtLayout>
 
+  <!--Todo追加-->
   <AddIcon @click="isShowAddTodoModal = true" />
   <AddTodoModal v-model:is-show="isShowAddTodoModal" @submit="onAddTodo" />
 </template>
@@ -223,8 +226,5 @@ watch(
   align-items: center;
   gap: 2rem;
   padding: 1rem;
-  .trash-all__button {
-    margin-left: auto;
-  }
 }
 </style>

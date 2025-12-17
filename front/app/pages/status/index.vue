@@ -69,10 +69,12 @@ const onDeleteStatus = (statusId: number) => {
 
 <template>
   <NuxtLayout>
-    <BreadCrumb :breadcrumb="[{ label: PAGE_TITLE }]" />
-
-    <h1>{{ PAGE_TITLE }}</h1>
-
+    <!--ページ上部-->
+    <PageHeader
+      :title="PAGE_TITLE"
+      :breadcrumb="[{ label: PAGE_TITLE }]"
+      :has-data-length="false"
+    />
     <BaseText color="secondary" size="small">
       <span
         v-for="status in Object.values(DEFAULT_STATUSES)"
@@ -92,11 +94,12 @@ const onDeleteStatus = (statusId: number) => {
         @onUpdate="onUpdateStatus"
       />
     </AsyncDataCard>
-
-    <AddIcon @click="isShowAddStatusModal = true" />
-    <AddStatusModal
-      v-model:is-show="isShowAddStatusModal"
-      @submit="onAddStatus"
-    />
   </NuxtLayout>
+
+  <!--ステータス追加-->
+  <AddIcon @click="isShowAddStatusModal = true" />
+  <AddStatusModal
+    v-model:is-show="isShowAddStatusModal"
+    @submit="onAddStatus"
+  />
 </template>
