@@ -55,13 +55,16 @@ const onUpdatePassword = () => {
 
 <template>
   <NuxtLayout>
-    <BreadCrumb :breadcrumb="[{ label: PAGE_TITLE }]" />
-
-    <h1>{{ PAGE_TITLE }}</h1>
+    <!--ページ上部-->
+    <PageHeader
+      :title="PAGE_TITLE"
+      :breadcrumb="[{ label: PAGE_TITLE }]"
+      :has-data-length="false"
+    />
 
     <h2>ユーザー情報</h2>
     <BaseCard>
-      <form class="user-edit__wrapper" @submit.prevent="onUpdateUser">
+      <form @submit.prevent="onUpdateUser">
         <FormItem label="名前">
           <BaseInput
             v-model:text="formData.name"
@@ -82,7 +85,7 @@ const onUpdatePassword = () => {
 
     <h2>パスワード変更</h2>
     <BaseCard>
-      <form class="user-edit__wrapper" @submit.prevent="onUpdatePassword()">
+      <form @submit.prevent="onUpdatePassword()">
         <FormItem label="現在のパスワード">
           <BaseInput
             v-model:text="passwordFormData.current_password"
@@ -113,9 +116,3 @@ const onUpdatePassword = () => {
     </BaseCard>
   </NuxtLayout>
 </template>
-
-<style scoped>
-.user-edit__wrapper {
-  padding: 1rem;
-}
-</style>

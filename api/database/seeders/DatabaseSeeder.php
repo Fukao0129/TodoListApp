@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // マスタデータ
-        $this->call(StatusesTableSeeder::class);
         $this->call(MailsTableSeeder::class);
 
         $this->call(UsersTableSeeder::class);
+        $this->call(StatusesTableSeeder::class);
         $this->call(TodosTableSeeder::class);
     }
 }
