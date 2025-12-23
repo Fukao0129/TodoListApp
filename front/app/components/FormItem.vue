@@ -12,7 +12,6 @@ withDefaults(
 
 <template>
   <div
-  display: flex;
     class="flex items-center gap-4 py-2 w-full"
     :class="{ 'border-b border-neutral-subtle': hasBorder }"
   >
