@@ -5,10 +5,6 @@
 const q = defineModel<string>("q"); // 検索キーワード
 const selectedIndex = defineModel<number>("selectedIndex"); // 選択中のセレクトボックス
 const isToggleOn = defineModel<boolean>("isToggleOn"); // トグルのON/OFF
-
-const emit = defineEmits<{
-  onSelectChange: [Event];
-}>();
 </script>
 
 <template>
@@ -22,7 +18,6 @@ const emit = defineEmits<{
           name: option.label,
         }))
       "
-      @change="emit('onSelectChange', $event)"
     />
     <BaseToggle
       v-model:is-on="isToggleOn"

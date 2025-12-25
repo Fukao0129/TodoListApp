@@ -134,14 +134,13 @@ const onTrashCompletedTodos = () => {
 
 /** ソート条件変更 */
 const selectedSortIndex = ref(0);
-const onSortChange = (event: Event) => {
-  selectedSortIndex.value = parseInt((event.target as HTMLSelectElement).value);
-  const option = SORT_OPTIONS[selectedSortIndex.value];
+watch(selectedSortIndex, (newValue) => {
+  const option = SORT_OPTIONS[newValue];
   if (option) {
     searchParams.value.sort = option.sort;
     searchParams.value.direction = option.direction;
   }
-};
+});
 
 /** ページ遷移時 */
 const pageTitle = ref("");
@@ -184,7 +183,6 @@ watch(
       v-model:q="searchParams.q"
       v-model:selected-index="selectedSortIndex"
       v-model:is-toggle-on="isFilterCompleted"
-      @on-select-change="onSortChange"
     />
 
     <!--Todo一覧-->
